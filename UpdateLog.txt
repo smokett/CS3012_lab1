@@ -1,0 +1,6 @@
+Added Node Class
+Wrote a static solution for the LCA called searchLCA
+Wrote simple tests for the solution, here's a error with non existing node in the tree, need to be fixed next time.
+
+He Liu
+2019/09/24
