@@ -1,3 +1,11 @@
+Added a isInTheTree function to determine if a value is in the tree. This function is called in the top of the searchLCA function,
+so the searchLCA function will only run when both values are in the tree.
+
+Added Junit test for the function isInTheTree and also added Junit test for non existing values for searchLCA function
+
+He Liu
+2019/09/27
+
 Added Node Class
 Wrote a static solution for the LCA called searchLCA
 Wrote simple tests for the solution, here's a error with non existing node in the tree, need to be fixed next time.
