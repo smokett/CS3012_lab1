@@ -3,6 +3,12 @@ public class LCA {
 	static boolean inTheTree;
 	
 	
+	public static DAGNode searchDAGLCA(DAGNode root,int value1,int value2)
+	{
+		DAGNode result = null;
+		return result;
+	}
+	
 	public static Node searchLCA(Node root,int value1,int value2)
 	{
 		boolean check;
