@@ -1,13 +1,78 @@
+import java.util.ArrayList;
+
 public class LCA {
 	//The root node of the binary tree.	
 	static boolean inTheTree;
-	
-	
-	public static DAGNode searchDAGLCA(DAGNode root,int value1,int value2)
+
+	public static ArrayList<Integer> searchDAGLCA(DAGNode root,int value1,int value2)
 	{
-		DAGNode result = null;
+		ArrayList<Integer> result = new ArrayList<Integer>();
+		
+        int maxDepth = -1;
+        int firstResult = 0;
+		ArrayList<ancestorRecord> ancestorRecords1 = findAncestorDAG(root,value1);
+		ArrayList<ancestorRecord> ancestorRecords2 = findAncestorDAG(root,value2);
+		for(int i=0;i<ancestorRecords1.size();i++)
+		{
+			for(int j=0;j<ancestorRecords2.size();j++)
+			{
+				if(ancestorRecords1.get(i).value == ancestorRecords2.get(j).value)
+				{
+
+					if(ancestorRecords1.get(i).depth > maxDepth)
+					{
+						maxDepth = ancestorRecords1.get(i).depth;
+						firstResult = ancestorRecords1.get(i).value;
+					}
+				}
+			}
+		}
+		result.add(firstResult);
+
+
 		return result;
 	}
+	
+	public static ArrayList<ancestorRecord> findAncestorDAG(DAGNode root,int value)
+	{
+		ArrayList<ancestorRecord> record = new ArrayList<ancestorRecord>();
+		int depth = 0;
+		findAncestorDAGP(root,value,record,depth);
+		return record;
+	}
+	
+	private static DAGNode findAncestorDAGP(DAGNode theNode,int value,ArrayList<ancestorRecord> record,int depth)
+	{
+		if(theNode == null)
+		{
+			return null;
+		}
+		
+		if(theNode.data == value)
+		{
+			ancestorRecord addRecord = new ancestorRecord(value,depth);
+			record.add(addRecord);
+			return theNode;
+		}
+		
+		DAGNode[] childNode = new DAGNode[theNode.childNodes.size()];
+		for(int i=0;i<theNode.childNodes.size();i++)
+		{
+			childNode[i] = findAncestorDAGP(theNode.childNodes.get(i),value,record,depth+1);
+		}
+		
+		for(int i=0;i<theNode.childNodes.size();i++)
+		{
+			if(childNode[i] !=null)
+			{
+				ancestorRecord addRecord = new ancestorRecord(theNode.data,depth);
+				record.add(addRecord);
+				return findAncestorDAGP(theNode.childNodes.get(i),value,record,depth+1);
+			}
+		}
+		return null;
+	}
+	
 	
 	public static Node searchLCA(Node root,int value1,int value2)
 	{

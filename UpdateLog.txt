@@ -1,14 +1,29 @@
+Implemented the searchDAGLCA function, added another test for this function
+He Liu
+2019/10/10
+
+
+Added DAGNode
+Added a test for finding LCA in DAG
+The searchDAGLCA function need to be implemented
+He Liu
+2019/10/08
+
+
+Added a new branch DAG
+He Liu
+2019/10/07
+
+
 Added a isInTheTree function to determine if a value is in the tree. This function is called in the top of the searchLCA function,
 so the searchLCA function will only run when both values are in the tree.
-
 Added Junit test for the function isInTheTree and also added Junit test for non existing values for searchLCA function
-
 He Liu
 2019/09/27
+
 
 Added Node Class
 Wrote a static solution for the LCA called searchLCA
 Wrote simple tests for the solution, here's a error with non existing node in the tree, need to be fixed next time.
-
 He Liu
 2019/09/24

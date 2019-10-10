@@ -69,7 +69,7 @@ public class LCAtest {
 
 	}
 	@Test
-	public void testDAG_LCA() {
+	public void testDAG_LCA1() {
 		/**
 		 *        1
 		 *     /  | \  \
@@ -98,16 +98,97 @@ public class LCAtest {
 		node2.childNodes.add(node4);
 		node3.childNodes.add(node5);	
 		
-		assertEquals("Checking Node 2 and Node 4, the LCA should be 2",2,LCA.searchDAGLCA(root,2,4).data);
-		assertEquals("Checking Node 3 and Node 4, the LCA should be 1",1,LCA.searchDAGLCA(root,3,4).data);
-		assertEquals("Checking Node 2 and Node 5, the LCA should be 1",1,LCA.searchDAGLCA(root,2,5).data);
-		assertEquals("Checking Node 1 and Node 5, the LCA should be 1",2,LCA.searchDAGLCA(root,1,5).data);
-		assertEquals("Checking Node 5 and Node 3, the LCA should be 3",3,LCA.searchDAGLCA(root,5,3).data);
-		assertEquals("Checking Node 6 and Node 4, the LCA should be null",null,LCA.searchDAGLCA(root,6,4).data);
-		assertEquals("Checking Node 6 and Node 8, the LCA should be null",null,LCA.searchDAGLCA(root,6,8).data);
+		int result = LCA.searchDAGLCA(root,2,4).get(0);
+		assertEquals("Checking Node 2 and Node 4, the LCA should be 2",2,result);
+		result = LCA.searchDAGLCA(root,3,4).get(0);
+		assertEquals("Checking Node 3 and Node 4, the LCA should be 1",1,result);
+		result = LCA.searchDAGLCA(root,2,5).get(0);
+		assertEquals("Checking Node 2 and Node 5, the LCA should be 1",1,result);
+		result = LCA.searchDAGLCA(root,1,5).get(0);
+		assertEquals("Checking Node 1 and Node 5, the LCA should be 1",1,result);
+		result = LCA.searchDAGLCA(root,5,3).get(0);
+		assertEquals("Checking Node 5 and Node 3, the LCA should be 3",3,result);
+		result = LCA.searchDAGLCA(root,6,4).get(0);
+		assertEquals("Checking Node 6 and Node 4, the LCA should be null",0,result);
+		result = LCA.searchDAGLCA(root,6,8).get(0);
+		assertEquals("Checking Node 6 and Node 8, the LCA should be null",0,result);
 		
 		
 		
 		}
+	
+	@Test
+	public void testDAG_LCA2() {
+		/**
+		 *             1
+		 *          /  | \  
+		 *        \/_  |  \  
+		 *       2     |   \     
+		 *        \    |   _\/  
+		 *        _\/  \/    3
+		 *             4     |
+		 *          /  |     |
+		 *        \/_  |     |
+		 *        5    \/    |
+		 *       / \   6     |
+		 *      /   \        |
+		 *    \/_    \       | 
+		 *    7       \      |
+		 *             _\/  \/
+		 *                8
+		 */
+		//Create 8 nodes
+		DAGNode root = new DAGNode(1);
+		DAGNode node2 = new DAGNode(2);
+		DAGNode node3 = new DAGNode(3);
+		DAGNode node4 = new DAGNode(4);
+		DAGNode node5 = new DAGNode(5);
+		DAGNode node6 = new DAGNode(6);
+		DAGNode node7 = new DAGNode(7);
+		DAGNode node8 = new DAGNode(8);
+		
+		//set nodes' relationship
+		root.childNodes.add(node2);
+		root.childNodes.add(node3);
+		root.childNodes.add(node4);
+
+		
+		node2.childNodes.add(node4);
+		
+		node3.childNodes.add(node8);
+		
+		node4.childNodes.add(node5);
+		node4.childNodes.add(node6);
+		
+		node5.childNodes.add(node7);
+		node5.childNodes.add(node8);
+		
+		int result = LCA.searchDAGLCA(root,2,4).get(0);
+		assertEquals("Checking Node 2 and Node 4, the LCA should be 2",2,result);
+		result = LCA.searchDAGLCA(root,5,4).get(0);
+		assertEquals("Checking Node 5 and Node 4, the LCA should be 4",4,result);
+		result = LCA.searchDAGLCA(root,6,2).get(0);
+		assertEquals("Checking Node 6 and Node 2, the LCA should be 2",2,result);
+		result = LCA.searchDAGLCA(root,7,6).get(0);
+		assertEquals("Checking Node 7 and Node 6, the LCA should be 4",4,result);
+		result = LCA.searchDAGLCA(root,8,7).get(0);
+		assertEquals("Checking Node 8 and Node 7, the LCA should be 5",5,result);
+		result = LCA.searchDAGLCA(root,7,3).get(0);
+		assertEquals("Checking Node 7 and Node 3, the LCA should be 1",1,result);
+		result = LCA.searchDAGLCA(root,5,2).get(0);
+		assertEquals("Checking Node 5 and Node 2, the LCA should be 2",2,result);
+		result = LCA.searchDAGLCA(root,9,3).get(0);
+		assertEquals("Checking Node 9 and Node 3, the LCA should be null",0,result);
+		result = LCA.searchDAGLCA(root,11,10).get(0);
+		assertEquals("Checking Node 11 and Node 10, the LCA should be null",0,result);
+		
+		
+		
+		}
+	
+	
+
+	
+	
 
 }
