@@ -7,9 +7,9 @@ public class LCA {
 	public static ArrayList<Integer> searchDAGLCA(DAGNode root,int value1,int value2)
 	{
 		ArrayList<Integer> result = new ArrayList<Integer>();
-		
-        int maxDepth = -1;
-        int firstResult = 0;
+
+		int maxDepth = -1;
+		int firstResult = 0;
 		ArrayList<ancestorRecord> ancestorRecords1 = findAncestorDAG(root,value1);
 		ArrayList<ancestorRecord> ancestorRecords2 = findAncestorDAG(root,value2);
 		for(int i=0;i<ancestorRecords1.size();i++)
@@ -32,7 +32,7 @@ public class LCA {
 
 		return result;
 	}
-	
+
 	public static ArrayList<ancestorRecord> findAncestorDAG(DAGNode root,int value)
 	{
 		ArrayList<ancestorRecord> record = new ArrayList<ancestorRecord>();
@@ -40,27 +40,27 @@ public class LCA {
 		findAncestorDAGP(root,value,record,depth);
 		return record;
 	}
-	
+
 	private static DAGNode findAncestorDAGP(DAGNode theNode,int value,ArrayList<ancestorRecord> record,int depth)
 	{
 		if(theNode == null)
 		{
 			return null;
 		}
-		
+
 		if(theNode.data == value)
 		{
 			ancestorRecord addRecord = new ancestorRecord(value,depth);
 			record.add(addRecord);
 			return theNode;
 		}
-		
+
 		DAGNode[] childNode = new DAGNode[theNode.childNodes.size()];
 		for(int i=0;i<theNode.childNodes.size();i++)
 		{
 			childNode[i] = findAncestorDAGP(theNode.childNodes.get(i),value,record,depth+1);
 		}
-		
+
 		for(int i=0;i<theNode.childNodes.size();i++)
 		{
 			if(childNode[i] !=null)
@@ -72,8 +72,8 @@ public class LCA {
 		}
 		return null;
 	}
-	
-	
+
+
 	public static Node searchLCA(Node root,int value1,int value2)
 	{
 		boolean check;
@@ -93,27 +93,27 @@ public class LCA {
 			return null;
 		}
 	}
-	
+
 	private static Node searchLCAP(Node theNode,int value1,int value2)
 	{
 		//Search value1 and value2 under the current node
-		
+
 		//If couldn't find the value, return null to present didn't find.
 		if(theNode == null)
 		{
 			return null;
 		}
-		
+
 		//If found the value, return the node to present found.
 		if(theNode.data == value1 || theNode.data == value2)
 		{
 			return theNode;
 		}
-		
+
 		//Search
 		Node leftResult = searchLCAP(theNode.left,value1,value2);
 		Node rightResult = searchLCAP(theNode.right,value1,value2);
-		
+
 		//If one value is in a side, and the other value is in the other side, then the current node is the LCA.
 		if(leftResult != null && rightResult != null)
 		{
@@ -134,7 +134,7 @@ public class LCA {
 			return null;
 		}
 	}
-	
+
 	//a function to check if a given value is inside the given tree, after run this function, check isTheTree to see the result.
 	public static void isInTheTree(Node root,int value)
 	{
@@ -145,9 +145,9 @@ public class LCA {
 		{
 			isInTheTreeP(root,value);
 		}
-		
+
 	}
-	
+
 	private static void isInTheTreeP(Node theNode,int value)
 	{
 		//if found the node, then set the flag to true
@@ -172,9 +172,9 @@ public class LCA {
 				isInTheTreeP(theNode.left,value);
 			}
 			//if a node has no child node, return
-				return;
+			return;
 		}
 	}
-	
+
 
 }
