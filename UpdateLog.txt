@@ -1,3 +1,7 @@
+improved the searchDAGLCA function, now it could pass all the tests.
+He Liu
+2019/10/12
+
 Added a test for LCA DAG and a test for LCA binary tree, the searchDAGLCA can not pass this test now, need to be improved
 He Liu
 2019/10/11

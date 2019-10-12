@@ -29,7 +29,20 @@ public class LCA {
 		}
 		result.add(firstResult);
 
+		for(int i=0;i<ancestorRecords1.size();i++)
+		{
+			for(int j=0;j<ancestorRecords2.size();j++)
+			{
+				if(ancestorRecords1.get(i).value == ancestorRecords2.get(j).value)
+				{
 
+					if(ancestorRecords1.get(i).depth == maxDepth && ancestorRecords1.get(i).value!=firstResult )
+					{
+						result.add(ancestorRecords1.get(i).value);		
+					}
+				}
+			}
+		}
 		return result;
 	}
 
