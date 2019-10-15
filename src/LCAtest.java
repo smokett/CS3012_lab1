@@ -272,6 +272,57 @@ public class LCAtest {
 
 
 	}
+	
+	
+	//Test graph that has multi-root
+	//1 2 5 are roots
+	@Test
+	public void testDAG_LCA4() {
+		/**
+		 *            
+		 *      1            2         5
+		 *      |  \     /   |         |
+		 *      |   \   /    |         |
+		 *      |     X      |         |
+		 *     \/  \/_ _\/   \/        \/
+		 *      3            4         6
+		 */
+		//Create 6 nodes
+		DAGNode node1 = new DAGNode(1);
+		DAGNode node2 = new DAGNode(2);
+		DAGNode node3 = new DAGNode(3);
+		DAGNode node4 = new DAGNode(4);
+		DAGNode node5 = new DAGNode(5);
+		DAGNode node6 = new DAGNode(6);
+		
+		//Manually create a root, to include all the roots as its children roots
+		//Give it a value -1, since it's not a real node, if any two nodes have -1 as its LCA, that means they don't have LCA.
+
+		DAGNode root = new DAGNode(-1);
+		//set nodes' relationship
+		root.childNodes.add(node1);
+		root.childNodes.add(node2);
+		root.childNodes.add(node5);
+
+
+		node1.childNodes.add(node3);
+		node1.childNodes.add(node4);
+		node2.childNodes.add(node3);
+		node2.childNodes.add(node4);
+		node5.childNodes.add(node6);
+
+		int result = LCA.searchDAGLCA(root,3,4).get(0);
+		assertEquals("Checking Node 4 and Node 5, the LCA should be 2 and 3, the first is 1",1,result);
+		result = LCA.searchDAGLCA(root,3,4).get(1);
+		assertEquals("Checking Node 4 and Node 5, the LCA should be 2 and 3, the second is 2",2,result);
+		
+		
+		result = LCA.searchDAGLCA(root,3,6).get(0);
+		assertEquals("Checking Node 3 and Node 6, since they don't have LCA, the result should be -1",-1,result);
+		
+
+
+	}
 
 
 

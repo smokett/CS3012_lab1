@@ -1,4 +1,8 @@
-improved the searchDAGLCA function, now it could pass all the tests.
+Added a test for multi-roots DAG
+He Liu
+2019/10/15
+
+Improved the searchDAGLCA function, now it could pass all the tests.
 He Liu
 2019/10/12
 
