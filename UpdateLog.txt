@@ -1,3 +1,7 @@
+Enhanced DAG for multi-roots, added another test.
+He Liu
+2019/10/16
+
 Added a test for multi-roots DAG
 He Liu
 2019/10/15

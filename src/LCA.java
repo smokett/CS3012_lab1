@@ -1,47 +1,61 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class LCA {
 	//The root node of the binary tree.	
 	static boolean inTheTree;
 
-	public static ArrayList<Integer> searchDAGLCA(DAGNode root,int value1,int value2)
+	public static ArrayList<Integer> searchDAGLCA(ArrayList<DAGNode> rootList,int value1,int value2)
 	{
 		ArrayList<Integer> result = new ArrayList<Integer>();
 
-		int maxDepth = -1;
-		int firstResult = 0;
-		ArrayList<ancestorRecord> ancestorRecords1 = findAncestorDAG(root,value1);
-		ArrayList<ancestorRecord> ancestorRecords2 = findAncestorDAG(root,value2);
-		for(int i=0;i<ancestorRecords1.size();i++)
+		for(int k=0;k<rootList.size();k++)
 		{
-			for(int j=0;j<ancestorRecords2.size();j++)
+			int maxDepth = -1;
+			int firstResult = 0;
+			ArrayList<ancestorRecord> ancestorRecords1 = findAncestorDAG(rootList.get(k),value1);
+			ArrayList<ancestorRecord> ancestorRecords2 = findAncestorDAG(rootList.get(k),value2);
+			for(int i=0;i<ancestorRecords1.size();i++)
 			{
-				if(ancestorRecords1.get(i).value == ancestorRecords2.get(j).value)
+				for(int j=0;j<ancestorRecords2.size();j++)
 				{
-
-					if(ancestorRecords1.get(i).depth > maxDepth)
+					if(ancestorRecords1.get(i).value == ancestorRecords2.get(j).value)
 					{
-						maxDepth = ancestorRecords1.get(i).depth;
-						firstResult = ancestorRecords1.get(i).value;
+
+						if(ancestorRecords1.get(i).depth > maxDepth)
+						{
+							maxDepth = ancestorRecords1.get(i).depth;
+							firstResult = ancestorRecords1.get(i).value;
+						}
+					}
+				}
+			}
+			result.add(firstResult);
+
+			for(int i=0;i<ancestorRecords1.size();i++)
+			{
+				for(int j=0;j<ancestorRecords2.size();j++)
+				{
+					if(ancestorRecords1.get(i).value == ancestorRecords2.get(j).value)
+					{
+
+						if(ancestorRecords1.get(i).depth == maxDepth && ancestorRecords1.get(i).value!=firstResult )
+						{
+
+	
+							result.add(ancestorRecords1.get(i).value);		
+
+							
+						}
 					}
 				}
 			}
 		}
-		result.add(firstResult);
-
-		for(int i=0;i<ancestorRecords1.size();i++)
+		HashSet<Integer> set = new HashSet<Integer>(result);
+		result = new ArrayList<Integer>(set);
+		if(result.size()>1 && result.get(0) == 0)
 		{
-			for(int j=0;j<ancestorRecords2.size();j++)
-			{
-				if(ancestorRecords1.get(i).value == ancestorRecords2.get(j).value)
-				{
-
-					if(ancestorRecords1.get(i).depth == maxDepth && ancestorRecords1.get(i).value!=firstResult )
-					{
-						result.add(ancestorRecords1.get(i).value);		
-					}
-				}
-			}
+			result.remove(0);
 		}
 		return result;
 	}
