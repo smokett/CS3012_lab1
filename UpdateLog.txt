@@ -1,3 +1,7 @@
+Added tests for finding LCA for binary tree with searchDAGLCA.
+He Liu
+2019/10/17
+
 Enhanced DAG for multi-roots, added another test.
 He Liu
 2019/10/16

@@ -53,9 +53,15 @@ public class LCA {
 		}
 		HashSet<Integer> set = new HashSet<Integer>(result);
 		result = new ArrayList<Integer>(set);
-		if(result.size()>1 && result.get(0) == 0)
+		if(result.size()>1)
 		{
-			result.remove(0);
+			for(int i=0;i<result.size();i++)
+			{
+				if(result.get(i) == 0)
+				{
+					result.remove(0);
+				}
+			}
 		}
 		return result;
 	}

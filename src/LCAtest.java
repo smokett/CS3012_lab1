@@ -37,6 +37,8 @@ public class LCAtest {
 
 		LCA.isInTheTree(root, 6);
 		assertEquals("Checking for non existing value in the tree.",false,LCA.inTheTree);
+		
+		
 
 
 
@@ -67,6 +69,33 @@ public class LCAtest {
 
 		assertEquals("Checking Node 6 and Node 3, the LCA should be null",null,LCA.searchLCA(root,6,3));
 		assertEquals("Checking Node 7 and Node 8, the LCA should be null",null,LCA.searchLCA(root,7,8));
+		
+		
+
+		//Test this with searchDAGLCA function.
+		DAGNode node1 = new DAGNode(1);
+		DAGNode node2 = new DAGNode(2);
+		DAGNode node3 = new DAGNode(3);
+		DAGNode node4 = new DAGNode(4);
+		DAGNode node5 = new DAGNode(5);
+		
+		ArrayList<DAGNode> rootList = new ArrayList<DAGNode>();
+		node1.childNodes.add(node2);
+		node1.childNodes.add(node3);
+		node2.childNodes.add(node4);
+		node2.childNodes.add(node5);
+		rootList.add(node1);	
+		int result = LCA.searchDAGLCA(rootList,2,4).get(0);
+		assertEquals("Checking Node 2 and Node 4, the LCA should be 2",2,result);
+		result = LCA.searchDAGLCA(rootList,4,5).get(0);
+		assertEquals("Checking Node 4 and Node 5, the LCA should be 2",2,result);
+		result = LCA.searchDAGLCA(rootList,7,8).get(0);
+		assertEquals("Checking Node 7 and Node 8, the LCA should be 0",0,result);
+		
+		
+		
+		
+		
 
 
 	}
@@ -108,7 +137,42 @@ public class LCAtest {
 		
 		assertEquals("Checking Node 11 and Node 3, the LCA should be null",null,LCA.searchLCA(root,11,3));
 		assertEquals("Checking Node 14 and Node 12, the LCA should be null",null,LCA.searchLCA(root,14,12));
-
+		
+		
+		
+		
+		//Test this with searchDAGLCA function.
+		DAGNode node1 = new DAGNode(1);
+		DAGNode node2 = new DAGNode(2);
+		DAGNode node3 = new DAGNode(3);
+		DAGNode node4 = new DAGNode(4);
+		DAGNode node5 = new DAGNode(5);
+		DAGNode node6 = new DAGNode(6);
+		DAGNode node7 = new DAGNode(7);
+		DAGNode node8 = new DAGNode(8);
+		DAGNode node9 = new DAGNode(9);
+		DAGNode node10 = new DAGNode(10);
+		
+		
+		
+		ArrayList<DAGNode> rootList = new ArrayList<DAGNode>();
+		node1.childNodes.add(node2);
+		node1.childNodes.add(node3);
+		node2.childNodes.add(node4);
+		node2.childNodes.add(node5);
+		node3.childNodes.add(node6);
+		node4.childNodes.add(node9);
+		node4.childNodes.add(node10);
+		node6.childNodes.add(node7);
+		node6.childNodes.add(node8);
+		
+		rootList.add(node1);	
+		int result = LCA.searchDAGLCA(rootList,2,4).get(0);
+		assertEquals("Checking Node 2 and Node 4, the LCA should be 2",2,result);
+		result = LCA.searchDAGLCA(rootList,9,7).get(0);
+		assertEquals("Checking Node 9 and Node 7, the LCA should be 1",1,result);
+		result = LCA.searchDAGLCA(rootList,11,3).get(0);
+		assertEquals("Checking Node 11 and Node 3, the LCA should be 0",0,result);
 
 	}	
 	
